@@ -7,6 +7,13 @@
 
 Reference **Robotico.Repository** when you use the **Repository pattern** (Repository + Unit of Work). Interfaces: `IEntity<TId>`, `IRepository<TEntity,TId>` (GetById returns `Result<TEntity>`, Add, Update, Remove), `IUnitOfWork` (CommitAsync returns `Result`).
 
+## Robotico dependencies
+
+```mermaid
+flowchart LR
+  A[Robotico.Repository] --> B[Robotico.Result]
+```
+
 ## Installation
 
 ```bash
