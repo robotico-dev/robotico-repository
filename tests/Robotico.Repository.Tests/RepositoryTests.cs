@@ -13,7 +13,7 @@ public sealed class RepositoryTests
     [Fact]
     public void IEntity_exposes_Id()
     {
-        var id = Guid.NewGuid();
+        Guid id = Guid.NewGuid();
         IEntity<Guid> entity = new SampleEntity { Id = id };
         Assert.Equal(id, entity.Id);
     }

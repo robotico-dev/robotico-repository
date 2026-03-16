@@ -5,7 +5,8 @@
     <PackageId>Robotico.Repository.Tests</PackageId>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-    <NoWarn>$(NoWarn);CA1707;CS1591;CA1515;CA1859</NoWarn>
+    <!-- CA1707/CA1515: Test naming and discovery. -->
+    <NoWarn>$(NoWarn);CA1707;CA1515;CA1859</NoWarn>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
