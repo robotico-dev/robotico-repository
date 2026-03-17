@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Robotico.Repository/Robotico.Repository.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Robotico.Repository.Tests/Robotico.Repository.Tests.csproj" />
+  </Folder>
+</Solution>
