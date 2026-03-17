@@ -1,0 +1,30 @@
+= Robotico.Repository — Design
+
+This document describes the Repository and Unit of Work abstractions, how they use Robotico.Result, and how they fit with other Robotico packages.
+
+== Overview
+
+*Robotico.Repository* provides:
+
+* `IRepository<TEntity, TId>` — persistence abstraction for entities that implement Robotico.Domain's `IEntity<TId>`. Methods: GetById (returns `Result<TEntity>`), Add, Update, Remove (return `Result`).
+* `IUnitOfWork` — commits pending changes as a single transaction. `CommitAsync` returns `Result`.
+
+There are no in-box implementations; you implement these interfaces (e.g. with EF Core, Dapper, or an in-memory store for tests).
+
+== Repository + Unit of Work pattern
+
+* Use a *Unit of Work* to group one or more repository operations into a single transaction. Call `CommitAsync` once after all changes; if it fails, the whole transaction fails.
+* GetById returns a failed result when the entity is not found (e.g. `Result.Error(...)` with a "not found" error). Callers use `result.IsSuccess(out TEntity? entity)` or `result.IsError(out _)` to handle both cases.
+* Add/Update/Remove return `Result`; implementations may return failure for constraint violations, concurrency, or infrastructure errors.
+
+== Null safety
+
+Implementations must validate arguments: throw `ArgumentNullException` for null `id` in GetById and null `entity` in Add, Update, Remove. Document this in XML so that callers and implementors have a clear contract.
+
+== Related packages
+
+* *Robotico.Domain* — Required. Entities implement `IEntity<TId>` and can extend `Entity<TId>` for equality by Id.
+* *Robotico.Specification* — Use `ISpecification<TEntity>` for query criteria (e.g. Find by specification). Implementations can add a Find method that accepts a specification.
+* *Robotico.Validation* — Validate entities before Add/Update (e.g. `IValidator<TEntity>.Validate(entity)`) and convert validation errors to `Result.Error`.
+
+See the README "Related packages" section for a short table.
