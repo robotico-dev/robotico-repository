@@ -4,11 +4,6 @@ using Xunit;
 
 namespace Robotico.Repository.Tests;
 
-public sealed class SampleEntity : IEntity<Guid>
-{
-    public Guid Id { get; init; }
-}
-
 public sealed class RepositoryTests
 {
     [Fact]
