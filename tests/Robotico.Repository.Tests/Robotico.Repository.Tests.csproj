@@ -26,4 +26,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Robotico.Repository\Robotico.Repository.csproj" />
   </ItemGroup>
+  <ItemGroup Condition="Exists('..\..\..\robotico-analyzers-csharp\src\Robotico.Analyzers\Robotico.Analyzers.csproj')">
+    <ProjectReference Include="..\..\..\robotico-analyzers-csharp\src\Robotico.Analyzers\Robotico.Analyzers.csproj"
+                      OutputItemType="Analyzer"
+                      ReferenceOutputAssembly="false" />
+  </ItemGroup>
 </Project>

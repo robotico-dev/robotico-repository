@@ -75,6 +75,29 @@ public sealed class RepositoryTests
         Assert.True(result.IsSuccess());
     }
 
+    [Fact]
+    public void InMemoryUnitOfWork_capabilities_match_no_op_semantics()
+    {
+        InMemoryUnitOfWork uow = new();
+        IUnitOfWorkCapabilities caps = uow;
+        Assert.Equal(UnitOfWorkCommitMode.NoOpCommitSuccess, caps.Capabilities.CommitMode);
+        Assert.False(caps.Capabilities.CommitCoordinatesDomainWrites);
+        Assert.False(caps.Capabilities.SupportsTransactions);
+    }
+
+    [Fact]
+    public async Task GetByIdAsync_after_AddAsync_matches_sync_behavior()
+    {
+        InMemoryRepository<SampleEntity, Guid> repo = new();
+        SampleEntity entity = new() { Id = Guid.NewGuid() };
+        Robotico.Result.Result addResult = await repo.AddAsync(entity);
+        Assert.True(addResult.IsSuccess());
+
+        Robotico.Result.Result<SampleEntity> getResult = await repo.GetByIdAsync(entity.Id);
+        Assert.True(getResult.IsSuccess(out SampleEntity? retrieved));
+        Assert.Same(entity, retrieved);
+    }
+
     [Theory]
     [InlineData(true)]
     [InlineData(false)]

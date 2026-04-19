@@ -4,7 +4,7 @@ using Robotico.Result.Errors;
 
 namespace Robotico.Repository.Tests;
 
-public sealed class InMemoryRepository<TEntity, TId> : IRepository<TEntity, TId>
+public sealed class InMemoryRepository<TEntity, TId> : IRepository<TEntity, TId>, IAsyncRepository<TEntity, TId>
     where TEntity : IEntity<TId>
     where TId : notnull
 {
@@ -48,5 +48,29 @@ public sealed class InMemoryRepository<TEntity, TId> : IRepository<TEntity, TId>
         }
 
         return Robotico.Result.Result.Error(new SimpleError($"Entity with id '{entity.Id}' not found.", "NOT_FOUND"));
+    }
+
+    public Task<Robotico.Result.Result<TEntity>> GetByIdAsync(TId id, CancellationToken cancellationToken = default)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        return Task.FromResult(GetById(id));
+    }
+
+    public Task<Robotico.Result.Result> AddAsync(TEntity entity, CancellationToken cancellationToken = default)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        return Task.FromResult(Add(entity));
+    }
+
+    public Task<Robotico.Result.Result> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        return Task.FromResult(Update(entity));
+    }
+
+    public Task<Robotico.Result.Result> RemoveAsync(TEntity entity, CancellationToken cancellationToken = default)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        return Task.FromResult(Remove(entity));
     }
 }

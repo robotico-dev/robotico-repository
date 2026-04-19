@@ -5,6 +5,7 @@ namespace Robotico.Repository;
 /// </summary>
 /// <remarks>
 /// <para>Use with one or more repositories; call CommitAsync once after all changes. If CommitAsync fails, the whole transaction should be rolled back (implementation-defined).</para>
+/// <para>Transactional semantics differ by adapter. Inspect <see cref="IUnitOfWorkCapabilities"/> on concrete unit-of-work types for <see cref="UnitOfWorkProfile"/>.</para>
 /// </remarks>
 public interface IUnitOfWork
 {

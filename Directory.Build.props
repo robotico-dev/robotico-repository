@@ -14,11 +14,11 @@
   <Import Project="$(_RoboticoSharedMsbuildImport)" Condition="'$(_RoboticoSharedMsbuildImport)' != ''" />
 
   <PropertyGroup>
-    <Version>1.0.0</Version>
+    <Version>1.2.1</Version>
     <Product>Robotico.Repository</Product>
     <PackageId>Robotico.Repository</PackageId>
     <Title>Robotico.Repository</Title>
-    <Description>Repository and Unit of Work interfaces for .NET. IEntity&lt;TId&gt;, IRepository&lt;TEntity,TId&gt; (GetById returns Result&lt;TEntity&gt;, Add, Update, Remove), IUnitOfWork (CommitAsync returns Result). Depends on Robotico.Result.</Description>
+    <Description>Repository and Unit of Work interfaces for .NET. IEntity&lt;TId&gt;, IRepository&lt;TEntity,TId&gt;, IAsyncRepository&lt;TEntity,TId&gt;, IUnitOfWork, IUnitOfWorkCapabilities / UnitOfWorkProfile, UnitOfWorkGuard / UnitOfWorkRequirement. Depends on Robotico.Result.</Description>
     <PackageTags>repository;unit-of-work;ddd;robotico</PackageTags>
   </PropertyGroup>
 </Project>

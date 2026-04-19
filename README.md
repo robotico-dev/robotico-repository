@@ -5,7 +5,16 @@
 [![GitHub Packages](https://img.shields.io/badge/GitHub%20Packages-Robotico.Repository-blue?logo=github)](https://github.com/robotico-dev/robotico-repository-csharp/packages)
 [![Build](https://github.com/robotico-dev/robotico-repository-csharp/actions/workflows/publish.yml/badge.svg)](https://github.com/robotico-dev/robotico-repository-csharp/actions/workflows/publish.yml)
 
-Reference **Robotico.Repository** when you use the **Repository pattern** (Repository + Unit of Work). Interfaces: `IRepository<TEntity,TId>` (uses **Robotico.Domain** `IEntity<TId>`), `IUnitOfWork` (CommitAsync returns `Result`). Entity types come from **Robotico.Domain** (e.g. `Entity<TId>`).
+Reference **Robotico.Repository** when you use the **Repository pattern** (Repository + Unit of Work). Interfaces: `IRepository<TEntity,TId>` and `IAsyncRepository<TEntity,TId>` (uses **Robotico.Domain** `IEntity<TId>`), `IUnitOfWork` (CommitAsync returns `Result`), `IUnitOfWorkCapabilities` / `UnitOfWorkProfile`, and `UnitOfWorkGuard` / `UnitOfWorkRequirement` for startup validation. Entity types come from **Robotico.Domain** (e.g. `Entity<TId>`).
+
+## Which interface?
+
+| Host / scenario | Prefer |
+|-----------------|--------|
+| New ASP.NET Core or background worker code | `IAsyncRepository<TEntity,TId>` when your Tier 3 adapter implements it |
+| Legacy modules, scripts, or purely synchronous flows | `IRepository<TEntity,TId>` |
+
+Migration: `csharp/build/ROBOTICO_REPOSITORY_ASYNC_MIGRATION.adoc` in the Robotico workspace.
 
 ## Robotico dependencies
 
